@@ -98,7 +98,7 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="gls -1 --color --group-directories-first"
 
-unalias run-help
+# unalias run-help
 autoload run-help
 HELPDIR=/usr/local/share/zsh/help
 
