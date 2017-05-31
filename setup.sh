@@ -21,6 +21,7 @@ binaries=(
     python3
     screenfetch
     tmux
+    tree
     wget
     zsh
 )
