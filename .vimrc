@@ -4,6 +4,7 @@ syntax on
 set background=dark
 set hlsearch
 set number
+set numberwidth=5
 set ts=4
 set expandtab
 set tabstop=4
