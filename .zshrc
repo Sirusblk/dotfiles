@@ -59,7 +59,7 @@ plugins=(
 
 # User configuration
 
-export PATH=$PATH":/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH=":/usr/local/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 export CLICOLOR=1;
 export EDITOR=subl
@@ -97,7 +97,7 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="gls -1 --color --group-directories-first"
-alias emacs="/usr/local/Cellar/emacs/25.1/bin/emacs"
+# alias emacs="/usr/local/Cellar/emacs/25.1/bin/emacs"
 
 # unalias run-help
 autoload run-help

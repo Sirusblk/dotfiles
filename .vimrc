@@ -26,6 +26,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'chriskempson/base16-vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'gilligan/vim-lldb'
 
 "Vundle Cleanup
 "--------------
