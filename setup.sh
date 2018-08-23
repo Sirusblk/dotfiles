@@ -14,7 +14,6 @@ binaries=(
     docker
     doxygen
     editorconfig
-    emacs
     ffmpeg
     findutils
     flac
@@ -46,19 +45,27 @@ binaries=(
 
 apps=(
     atom
+    bit-slicer
     cheatsheet
+    coda
+    discord
     dropbox
+    emacs
+    flux
     google-chrome
     google-drive
+    googleappengine
     iterm2
-    screenfetch
+    java
+    macdown
+    meld
     slack
     spectacle
-    sublime-text3
+    stella
+    sublime-text
+    transmit
     vagrant
     virtualbox
-    wget
-    zsh
 )
 
 fonts=(
