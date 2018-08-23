@@ -7,22 +7,40 @@
 binaries=(
     bash
     boost
-    caskroom/cask/brew-cask
     cabextract
+    cairo
+    coreutils
+    dasm
     docker
+    doxygen
+    editorconfig
+    emacs
+    ffmpeg
+    findutils
+    flac
     git
     glew
-    gmp
+    glfw
+    glfw3
+    glib
+    grep
+    hugo
+    imagemagick
+    kotlin
     macvim
     mercurial
     node
+    openssl
     pandoc
     python
     python3
     screenfetch
+    sqlite
     tmux
     tree
     wget
+    x264
+    xvid
     zsh
 )
 
@@ -100,19 +118,6 @@ function install_homebrew()
 
 function update_unix_tools()
 {
-    # Install GNU core utilities (those that come with OS X are outdated)
-    brew install coreutils
-
-    # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-    brew install findutils
-
-    # Install Bash 4
-    brew install bash
-
-    # Install more recent versions of some OS X tools
-    brew tap homebrew/dupes
-    brew install homebrew/dupes/grep
-
     # Update $Path for updated unix tools
     $PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 }
