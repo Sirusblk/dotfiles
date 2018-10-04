@@ -8,20 +8,21 @@ binaries=(
     bash
     boost
     cabextract
-    cairo
     coreutils
     dasm
     docker
     doxygen
     editorconfig
+    emacs
     ffmpeg
     findutils
     flac
+    freeimage
+    gcc
+    gdb
     git
     glew
     glfw
-    glfw3
-    glib
     grep
     hugo
     imagemagick
@@ -29,7 +30,6 @@ binaries=(
     macvim
     mercurial
     node
-    openssl
     pandoc
     python
     python3
@@ -38,8 +38,6 @@ binaries=(
     tmux
     tree
     wget
-    x264
-    xvid
     zsh
 )
 
@@ -229,3 +227,4 @@ setup_extras
 brew cleanup
 
 echo "...done"
+
