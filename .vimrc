@@ -10,6 +10,7 @@ set expandtab
 set tabstop=4
 set autoindent
 let base16colorspace=256
+set termguicolors
 
 set nocompatible
 filetype off

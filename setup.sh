@@ -192,8 +192,7 @@ function setup_extras()
     ln -s $HOME/dotfiles/.zshrc ~/.zshrc
 
     # Set up Base16 Shell
-    git clone https://github.com/chriskempson/base16-shell.git
-    ~/.config/base16-shell
+    git clone https://github.com/martinlindhe/base16-iterm2.git ~/base16-shell
 
     # Set up VIM
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -236,8 +235,13 @@ setup_extras
 # Cleanup afterwards
 brew cleanup
 
+# Final Output messages
 echo "Don't forget to change shells with:"
 echo ""
 echo "\tchsh -s $(which zsh)"
+echo ""
+echo "Then setup your shell colors with:"
+echo ""
+echo "base16-monokai"
 echo ""
 echo "...done"
