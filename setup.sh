@@ -148,8 +148,9 @@ function install_fonts()
 function install_zsh()
 {
     echo "Installing oh-my-zsh"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    chsh -s $(which zsh)
+    cd ~
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" &
+    cd -
 
     # Syntax Highlighting
     mkdir -p ~/.oh-my-zsh/custom/plugins
@@ -230,6 +231,9 @@ setup_extras
 
 # Cleanup afterwards
 brew cleanup
+
+# Change shell
+chsh -s $(which zsh)
 
 echo "...done"
 
