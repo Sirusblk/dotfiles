@@ -205,6 +205,10 @@ function setup_extras()
     sh install.sh
     cd ..
     rm -rf fonts
+
+    # Add ssh key settings
+    cp $HOME/dotfile/ssh/config $HOME/.ssh/config
+    ssh-add -K ~/.ssh/id_rsa
 }
 
 # Main
@@ -232,8 +236,8 @@ setup_extras
 # Cleanup afterwards
 brew cleanup
 
-# Change shell
-chsh -s $(which zsh)
-
+echo "Don't forget to change shells with:"
+echo ""
+echo "\tchsh -s $(which zsh)"
+echo ""
 echo "...done"
-
