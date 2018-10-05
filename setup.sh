@@ -38,6 +38,7 @@ binaries=(
     tmux
     tree
     wget
+    vim
     zsh
 )
 
@@ -50,8 +51,8 @@ apps=(
     dropbox
     emacs
     flux
+    google-backup-and-sync
     google-chrome
-    google-drive
     googleappengine
     iterm2
     java
@@ -71,16 +72,12 @@ fonts=(
     font-cabin
     font-coda
     font-comic-neue
-    font-hack
-    font-impact
-    font-inconsolata-dz-for-powerline
     font-inconsolata-dz
-    font-keep-calm
     font-lobster
     font-lobster-two
-    font-meslo
+    font-meslo-for-powerline
     font-montserrat
-    font-ocra
+    font-ocr
     font-open-sans
     font-oxygen
     font-permanent-marker
@@ -96,8 +93,6 @@ fonts=(
     font-tangerine
     font-terminus
     font-titan-one
-    font-trebuchet-ms
-    font-ubuntu-mono-powerline
     font-ubuntu
     font-underdog
     font-unica-one
@@ -118,13 +113,15 @@ function install_homebrew()
     fi
 
     # Update homebrew recipes
+    echo "Updating homebrew..."
     brew update
 }
 
 function update_unix_tools()
 {
-    # Update $Path for updated unix tools
-    $PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+    # Update $Path for updated unix toolsi
+    echo "Setting coreutils..."
+    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 }
 
 function install_brew_binaries()
@@ -139,14 +136,11 @@ function install_brew_casks()
     # Default is: /Users/$user/Applications
     echo "Installing apps..."
     brew cask install --appdir="/Applications" ${apps[@]}
-
-    # A special case where we would prefer macvim,
-    # so we have to link it in manually.
-    brew linkapps macvim
 }
 
 function install_fonts()
 {
+    brew tap homebrew/cask-fonts
     echo "Installing fonts..."
     brew cask install ${fonts[@]}
 }
@@ -165,7 +159,8 @@ function install_zsh()
 
 function install_python_libraries()
 {
-    pip install -r requirements.txt
+    echo "Installing python libraries..."
+    pip install -r $HOME/dotfiles/python/requirements.txt
 }
 
 function install_opengl()
@@ -212,7 +207,16 @@ function setup_extras()
 
 # Main
 clear
-sudo -v
+
+# Ask for password first
+sudo -v &> /dev/null
+
+# Update sudo ahead of 5 minute timeout
+while true; do
+    sudo -n true
+    sleep 240
+    kill -0 "$$" || exit
+done &> /dev/null &
 
 install_homebrew
 update_unix_tools
