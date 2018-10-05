@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Adapted from LapwingLabs
-# http://lapwinglabs.com/blog/hacker-guide-to-setting-up-your-mac
-
 # List of Apps & Fonts
 binaries=(
     bash
@@ -57,6 +54,7 @@ apps=(
     iterm2
     java
     macdown
+    marshallofsound-google-play-music-player
     meld
     slack
     spectacle
@@ -133,9 +131,8 @@ function install_brew_binaries()
 function install_brew_casks()
 {
     # Install apps to /Applications
-    # Default is: /Users/$user/Applications
     echo "Installing apps..."
-    brew cask install --appdir="/Applications" ${apps[@]}
+    brew cask install ${apps[@]}
 }
 
 function install_fonts()
