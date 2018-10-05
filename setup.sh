@@ -148,7 +148,8 @@ function install_fonts()
 function install_zsh()
 {
     echo "Installing oh-my-zsh"
-    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    chsh -s $(which zsh)
 
     # Syntax Highlighting
     mkdir -p ~/.oh-my-zsh/custom/plugins
