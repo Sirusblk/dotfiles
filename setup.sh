@@ -74,6 +74,34 @@ fonts=(
 #############
 # Functions #
 #############
+setup_ssh_key()
+{
+    # Ask for email
+    echo "What is your email?"
+    read EMAIL
+
+    git config --global user.email $EMAIL
+    git config --global user.name "David McLaren"
+
+    ssh-keygen -t ed25519 -C $EMAIL -f $HOME/.ssh/id_ed25519 -N ""
+
+    # Start up ssh-agent
+    eval "$(ssh-agent -s)"
+
+    # Add ssh key settings
+    cp $HOME/dotfile/ssh/config $HOME/.ssh/config
+    ssh-add ~/.ssh/id_ed25519
+
+    echo ""
+    echo ""
+    echo "Add your SSH public key to places like Github"
+    echo "\thttps://github.com/settings/keys"
+    echo ""
+    echo "Copy it like so:"
+    echo "\tpbcopy < ~/.ssh/id_ed25519.pub"
+    echo ""
+}
+
 install_homebrew()
 {
     # Check for Homebrew,
@@ -183,6 +211,7 @@ while true; do
     kill -0 "$$" || exit
 done &> /dev/null &
 
+setup_ssh_key
 install_homebrew
 install_coreutils
 install_brew_binaries
