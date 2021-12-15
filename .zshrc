@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/david/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -52,24 +52,15 @@ ZSH_THEME="sorin"
 plugins=(
 	colorize
 	git
-	sublime
-	vagrant
 )
 
 # User configuration
 
-export PATH=":/usr/local/bin:$PATH"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH=/usr/local/opt/python/libexec/bin:$PATH
 export CLICOLOR=1;
-export EDITOR=subl
+export EDITOR=vim
 
 source $ZSH/oh-my-zsh.sh
-
-# Virtual Env Wrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -96,7 +87,6 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="gls -1 --color --group-directories-first"
-# alias emacs="/usr/local/Cellar/emacs/25.1/bin/emacs"
 
 # unalias run-help
 autoload run-help
@@ -104,17 +94,17 @@ HELPDIR=/usr/local/share/zsh/help
 
 export CLICOLOR=1
 
-# Set 256 colors
-export TERM=xterm-256color
-[ -n "$TMUX" ] && export TERM=screen-256color
-
 # Base16 Shell
-BASE16_SHELL=$HOME/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 
-export NVM_DIR="/Users/david/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# Load NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 unsetopt inc_append_history
 unsetopt share_history

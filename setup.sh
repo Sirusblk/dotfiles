@@ -2,67 +2,41 @@
 
 # List of Apps & Fonts
 binaries=(
-    bash
     boost
-    cabextract
-    coreutils
     dasm
     docker
     doxygen
     editorconfig
-    emacs
     ffmpeg
     findutils
     flac
-    freeimage
     gcc
     gdb
     git
     glew
     glfw
     grep
-    hugo
     imagemagick
     kotlin
-    macvim
-    mercurial
-    node
+    nvm
     pandoc
-    python
-    python3
     screenfetch
     sqlite
+    # Need svn to brew install many fonts
+    svn
     tmux
     tree
     wget
     vim
-    zsh
+    zsh-syntax-highlighting
 )
 
 apps=(
-    atom
     bit-slicer
-    cheatsheet
-    coda
     discord
-    dropbox
-    emacs
-    flux
-    google-backup-and-sync
-    google-chrome
-    googleappengine
+    google-drive
     iterm2
-    java
-    macdown
-    marshallofsound-google-play-music-player
-    meld
-    slack
-    spectacle
-    stella
-    sublime-text
-    transmit
-    vagrant
-    virtualbox
+    rectangle
 )
 
 fonts=(
@@ -70,7 +44,6 @@ fonts=(
     font-cabin
     font-coda
     font-comic-neue
-    font-inconsolata-dz
     font-lobster
     font-lobster-two
     font-meslo-for-powerline
@@ -101,68 +74,56 @@ fonts=(
 #############
 # Functions #
 #############
-function install_homebrew()
+install_homebrew()
 {
     # Check for Homebrew,
     # Install if we don't have it
     if test ! $(which brew); then
         echo "Installing homebrew..."
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-
-    # Update homebrew recipes
-    echo "Updating homebrew..."
-    brew update
 }
 
-function update_unix_tools()
+install_coreutils()
 {
-    # Update $Path for updated unix toolsi
-    echo "Setting coreutils..."
-    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    # Update $Path for updated unix tools
+    echo "Installing coreutils..."
+    brew install coreutils
 }
 
-function install_brew_binaries()
+install_brew_binaries()
 {
     echo "Installing binaries..."
     brew install ${binaries[@]}
 }
 
-function install_brew_casks()
+install_brew_casks()
 {
     # Install apps to /Applications
     echo "Installing apps..."
-    brew cask install ${apps[@]}
+    brew install --cask ${apps[@]}
 }
 
-function install_fonts()
+install_brew_fonts()
 {
     brew tap homebrew/cask-fonts
     echo "Installing fonts..."
-    brew cask install ${fonts[@]}
+    brew install --cask ${fonts[@]}
+
+    # Install powerline fonts
+    git clone https://github.com/powerline/fonts.git
+    sh fonts/install.sh
+    rm -rf fonts
 }
 
-function install_zsh()
+install_oh_my_zsh()
 {
     echo "Installing oh-my-zsh"
-    cd ~
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" &
-    cd -
-
-    # Syntax Highlighting
-    mkdir -p ~/.oh-my-zsh/custom/plugins
-    cd ~/.oh-my-zsh/custom/plugins
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
-    cd ~
+    # Specify & to run in background, we'll switch shells later
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
 }
 
-function install_python_libraries()
-{
-    echo "Installing python libraries..."
-    pip install -r $HOME/dotfiles/python/requirements.txt
-}
-
-function install_opengl()
+install_opengl()
 {
     echo "Installing OpenGL Dev Tools"
     brew tap homebrew/versions
@@ -174,38 +135,40 @@ function install_opengl()
     make install
 }
 
-function setup_extras()
+setup_extras()
 {
     echo "Seting up extras..."
     mkdir ~/Code
     mkdir ~/Books
 
-    # Set up ZSH as default shell
-    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
-
-    # Symlink dotfiles
-    ln -s $HOME/dotfiles/.editorconfig ~/.editorconfig
-    ln -s $HOME/dotfiles/.vimrc ~/.vimrc
-    ln -s $HOME/dotfiles/.zshrc ~/.zshrc
-
-    # Set up Base16 Shell
-    git clone https://github.com/martinlindhe/base16-iterm2.git ~/base16-shell
+    # Don't worry, we'll replace with our own later
+    rm ~/.editorconfig
+    rm ~/.vimrc
+    rm ~/.zshrc
 
     # Set up VIM
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
 
-    # Install powerline fonts
-    git clone https://github.com/powerline/fonts.git
-    cd fonts
-    sh install.sh
-    cd ..
-    rm -rf fonts
-
-    # Add ssh key settings
-    cp $HOME/dotfile/ssh/config $HOME/.ssh/config
-    ssh-add -K ~/.ssh/id_rsa
+    # Symlink dotfiles
+    ln -s $HOME/dotfiles/.editorconfig ~/.editorconfig
+    ln -s $HOME/dotfiles/.vimrc ~/.vimrc
+    ln -s $HOME/dotfiles/.zshrc ~/.zshrc
 }
+
+setup_mac_specific()
+{
+    # Set up Base16 Shell
+    git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+
+    echo ""
+    echo ""
+    echo "Setup your shell colors with:"
+    echo ""
+    echo "\tbase16_eighties"
+    echo ""
+}
+
 
 # Main
 clear
@@ -221,24 +184,18 @@ while true; do
 done &> /dev/null &
 
 install_homebrew
-update_unix_tools
+install_coreutils
 install_brew_binaries
 install_brew_casks
-install_fonts
-install_zsh
-install_python_libraries
+install_brew_fonts
+install_oh_my_zsh
 setup_extras
+setup_mac_specific
 
 # Cleanup afterwards
 brew cleanup
 
 # Final Output messages
-echo "Don't forget to change shells with:"
 echo ""
-echo "\tchsh -s $(which zsh)"
-echo ""
-echo "Then setup your shell colors with:"
-echo ""
-echo "base16-monokai"
 echo ""
 echo "...done"
